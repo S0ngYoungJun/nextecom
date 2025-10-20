@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+//import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 const NavIcons = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const router = useRouter();
-  const pathName = usePathname();
+ // const router = useRouter();
+ // const pathName = usePathname();
 
   // 클릭해도 아무 동작 없음
   const handleCartClick = (e: React.MouseEvent) => {
