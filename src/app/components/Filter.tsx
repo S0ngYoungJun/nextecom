@@ -50,8 +50,8 @@ const Filter = () => {
           onChange={handleFilterChange}
         >
           <option>Category</option>
-          <option value="">New Arrival</option>
-          <option value="">Popular</option>
+          <option value="">신상</option>
+          <option value="">베스트</option>
         </select>
         <select
           name=""
@@ -68,11 +68,11 @@ const Filter = () => {
           className="py-2 px-4 rounded-2xl text-xs font-medium bg-white ring-1 ring-gray-400"
           onChange={handleFilterChange}
         >
-          <option>Sort By</option>
-          <option value="asc price">Price (low to high)</option>
-          <option value="desc price">Price (high to low)</option>
-          <option value="asc lastUpdated">Newest</option>
-          <option value="desc lastUpdated">Oldest</option>
+          <option>정렬</option>
+          <option value="asc price">가격순 (내림차순)</option>
+          <option value="desc price">가격순 (비싼순)</option>
+          <option value="asc lastUpdated">최신순</option>
+          <option value="desc lastUpdated">오래된순</option>
         </select>
       </div>
     </div>

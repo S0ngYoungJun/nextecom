@@ -1,33 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-// 로컬 카테고리 데이터 (임시 예시)
-const categories = [
-  {
-    _id: "1",
-    name: "의류",
-    slug: "clothing",
-    image: "/images/categories/clothing.jpg",
-  },
-  {
-    _id: "2",
-    name: "전자제품",
-    slug: "electronics",
-    image: "/images/categories/electronics.jpg",
-  },
-  {
-    _id: "3",
-    name: "생활용품",
-    slug: "home",
-    image: "/images/categories/home.jpg",
-  },
-  {
-    _id: "4",
-    name: "도서",
-    slug: "books",
-    image: "/images/categories/books.jpg",
-  },
-];
+import { categories } from "@/app/data/categories"; // 외부 로컬 데이터 import
 
 const CategoryList = () => {
   return (
@@ -37,11 +10,11 @@ const CategoryList = () => {
           <Link
             href={`/list?cat=${item.slug}`}
             className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6"
-            key={item._id}
+            key={item.id} // 기존 _id 대신 id
           >
             <div className="relative bg-slate-100 w-full h-96">
               <Image
-                src={item.image || "/cat.png"}
+                src={item.imageUrl || "/cat.png"} // 기존 image → imageUrl
                 alt={item.name}
                 fill
                 sizes="20vw"

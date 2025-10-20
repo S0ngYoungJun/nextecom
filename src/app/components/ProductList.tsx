@@ -1,36 +1,48 @@
+// src/app/components/ProductList.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { localProducts } from "@/app/data/product"; // 로컬 데이터 import
+import { localProducts } from "@/app/data/product"; // 로컬 상품 데이터 import
 
-const ProductList = ({ limit }: { limit?: number }) => {
-  // 상품 개수 제한이 있다면 적용
-  const products = limit ? localProducts.slice(0, limit) : localProducts;
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  slug: string;
+  category: string;
+  description?: string; // 설명 optional
+  additionalInfo?: string; // 추가 정보 optional
+}
+
+interface ProductListProps {
+  products?: Product[];
+  limit?: number; // limit prop 추가
+}
+
+const ProductList = ({ products = localProducts, limit }: ProductListProps) => {
+  const displayProducts = limit ? products.slice(0, limit) : products;
+
+  if (displayProducts.length === 0) {
+    return <p className="text-center text-gray-500 mt-8">상품이 없습니다.</p>;
+  }
 
   return (
-    <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
-      {products.map((product) => (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
+      {displayProducts.map((product) => (
         <Link
-          href={`/${product.slug}`}
+          href={`/${product.slug}`} // slug 기반 상세페이지 링크
           key={product.id}
-          className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%] transition-transform hover:scale-[1.02]"
+          className="flex flex-col items-center justify-center border p-4 rounded-xl hover:shadow-lg transition"
         >
-          <div className="relative w-full h-80 overflow-hidden rounded-md">
-            <Image
-              src={product.imageUrl || "/images/product.png"}
-              alt={product.name}
-              fill
-              sizes="25vw"
-              className="absolute object-cover transition-opacity duration-300 hover:opacity-80"
-            />
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="font-medium text-gray-800">{product.name}</span>
-            {product.price && (
-              <span className="font-semibold text-gray-900">
-                ${product.price}
-              </span>
-            )}
-          </div>
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            width={200}
+            height={200}
+            className="object-contain"
+          />
+          <h3 className="mt-4 font-semibold">{product.name}</h3>
+          <p className="text-gray-600 text-sm">{product.price}원</p>
         </Link>
       ))}
     </div>
@@ -38,5 +50,3 @@ const ProductList = ({ limit }: { limit?: number }) => {
 };
 
 export default ProductList;
-
-

@@ -1,3 +1,4 @@
+// /app/data/product.ts
 export const localProducts = [
   {
     id: "1",
@@ -13,7 +14,7 @@ export const localProducts = [
     id: "2",
     name: "스피커바",
     price: 80000,
-    imageUrl: "/images/product/pro2.jpg",
+     imageUrl: "/images/product/pro2.jpg",
     slug: "device",
     category: "device",
     description: "세련된 디자인의 스피커바.",
@@ -32,7 +33,7 @@ export const localProducts = [
   {
     id: "4",
     name: "하얀색 마우스",
-    price: 35000,
+    price: 25000,
     imageUrl: "/images/product/pro4.jpg",
     slug: "mouse",
     category: "mouse",
