@@ -10,13 +10,7 @@ export default function Home() {
     <div className="">
       <Slider />
       <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
-        <h1 className="text-2xl">Best</h1>
-        <Suspense fallback={<Skeleton />}>
-           <ProductList limit={4} />
-        </Suspense>
-      </div>
-      <div className="mt-24">
-        <h1 className="text-2xl px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mb-12">
+        <h1 className="text-2xl">
           Categories
         </h1>
         <Suspense fallback={<Skeleton />}>
@@ -24,9 +18,15 @@ export default function Home() {
         </Suspense>
       </div>
       <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+        <h1 className="text-2xl">Best</h1>
+        <Suspense fallback={<Skeleton />}>
+           <ProductList limit={4} offset={0} />
+        </Suspense>
+      </div>
+      <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <h1 className="text-2xl">product</h1>
         <Suspense fallback={<Skeleton />}>
-          <ProductList limit={4} />
+          <ProductList limit={4} offset={4} />
         </Suspense>
       </div>
     </div>

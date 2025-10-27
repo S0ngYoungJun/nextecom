@@ -16,11 +16,19 @@ export interface Product {
 
 interface ProductListProps {
   products?: Product[];
-  limit?: number; // limit prop 추가
+  limit?: number;  // 한 번에 보여줄 상품 수
+  offset?: number; // 시작 위치 (추가)
 }
 
-const ProductList = ({ products = localProducts, limit }: ProductListProps) => {
-  const displayProducts = limit ? products.slice(0, limit) : products;
+const ProductList = ({
+  products = localProducts,
+  limit,
+  offset = 0,
+}: ProductListProps) => {
+  // offset부터 limit개만 잘라서 보여줌
+  const displayProducts = limit
+    ? products.slice(offset, offset + limit)
+    : products.slice(offset);
 
   if (displayProducts.length === 0) {
     return <p className="text-center text-gray-500 mt-8">상품이 없습니다.</p>;
@@ -30,7 +38,7 @@ const ProductList = ({ products = localProducts, limit }: ProductListProps) => {
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
       {displayProducts.map((product) => (
         <Link
-          href={`/${product.slug}`} // slug 기반 상세페이지 링크
+          href={`/${product.slug}`}
           key={product.id}
           className="flex flex-col items-center justify-center border p-4 rounded-xl hover:shadow-lg transition"
         >
@@ -42,7 +50,7 @@ const ProductList = ({ products = localProducts, limit }: ProductListProps) => {
             className="object-contain"
           />
           <h3 className="mt-4 font-semibold">{product.name}</h3>
-          <p className="text-gray-600 text-sm">{product.price}원</p>
+          <p className="text-gray-600 text-sm">{product.price.toLocaleString()}원</p>
         </Link>
       ))}
     </div>

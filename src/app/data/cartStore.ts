@@ -1,22 +1,23 @@
+// store/cartStore.ts
 import { create } from "zustand";
 
 interface CartItem {
   id: string;
   name: string;
   price: number;
-  imageUrl: string;
   quantity: number;
+  imageUrl: string;
 }
 
 interface CartState {
   items: CartItem[];
-  addItem: (item: CartItem) => void;
-  removeItem: (id: string) => void;
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: string) => void;
 }
 
 export const useCartStore = create<CartState>((set) => ({
   items: [],
-  addItem: (item) =>
+  addToCart: (item) =>
     set((state) => {
       const existing = state.items.find((i) => i.id === item.id);
       if (existing) {
@@ -30,8 +31,6 @@ export const useCartStore = create<CartState>((set) => ({
       }
       return { items: [...state.items, item] };
     }),
-  removeItem: (id) =>
-    set((state) => ({
-      items: state.items.filter((i) => i.id !== id),
-    })),
+  removeFromCart: (id) =>
+    set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
 }));

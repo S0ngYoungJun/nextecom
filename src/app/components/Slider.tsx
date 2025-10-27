@@ -23,7 +23,7 @@ const slides = [
   },
   {
     id: 3,
-    title: "애플,로지텍 해외의 다양한 상품들",
+    title: "레이저,로지텍 해외의 다양한 상품들",
     description: "30퍼 할인",
     img: "/images/sliders/slider3.jpg",
     url: "/",

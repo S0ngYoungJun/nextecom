@@ -1,27 +1,46 @@
 "use client";
 
-import { useCartStore } from "@/app/hooks/useCartStore";
 import { useState } from "react";
+import { useCartStore } from "@/app/hooks/useCartStore";
+
+interface AddProps {
+  productId: string;
+  name?: string;
+  price?: number;
+  imageUrl?: string;
+  variantId?: string;
+  stockNumber?: number;
+}
 
 const Add = ({
   productId,
+  name,
+  price,
+  imageUrl,
   variantId,
   stockNumber,
-}: {
-  productId: string;
-  variantId: string;
-  stockNumber: number;
-}) => {
+}: AddProps) => {
   const [quantity, setQuantity] = useState(1);
-  const { addItem, isLoading } = useCartStore();
+  const addItem = useCartStore((state) => state.addItem);
 
   const handleQuantity = (type: "i" | "d") => {
-    if (type === "d" && quantity > 1) {
-      setQuantity((prev) => prev - 1);
-    }
-    if (type === "i" && quantity < stockNumber) {
-      setQuantity((prev) => prev + 1);
-    }
+    if (type === "d" && quantity > 1) setQuantity((prev) => prev - 1);
+    if (type === "i") setQuantity((prev) => prev + 1);
+  };
+
+  const handleAddToCart = () => {
+    // ✅ variant가 있을 경우 variantId 우선
+    const idToAdd = variantId || productId;
+
+    addItem({
+      id: idToAdd,
+      name: name || "상품명 미정",
+      price: price || 0,
+      imageUrl: imageUrl || "",
+      quantity,
+    });
+
+    alert("🛒 상품이 장바구니에 추가되었습니다!");
   };
 
   return (
@@ -39,29 +58,27 @@ const Add = ({
             </button>
             {quantity}
             <button
-              className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
+              className="cursor-pointer text-xl"
               onClick={() => handleQuantity("i")}
-              disabled={quantity === stockNumber}
+              disabled={stockNumber !== undefined && quantity >= stockNumber}
             >
               +
             </button>
           </div>
-          {stockNumber < 1 ? (
-            <div className="text-xs">재고 부족</div>
-          ) : (
-            <div className="text-xs">
-              상품이 <span className="text-orange-500">{stockNumber} 개</span>{" "}
-              남았습니다!
-              <br /> 놓치지마세요. 
-            </div>
-          )}
+          <div className="text-xs text-gray-600">
+            현재 선택 수량:{" "}
+            <span className="text-orange-500">{quantity}개</span>
+          </div>
         </div>
+
         <button
-          onClick={() => addItem(productId, variantId, quantity)}
-          disabled={isLoading}
-          className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
+          onClick={handleAddToCart}
+          className={`w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 
+            hover:bg-lama hover:text-white transition 
+            ${stockNumber === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
+          disabled={stockNumber === 0}
         >
-          Add to Cart
+          {stockNumber === 0 ? "품절" : "Add to Cart"}
         </button>
       </div>
     </div>

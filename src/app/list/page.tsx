@@ -25,15 +25,14 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
       <div className="hidden bg-pink-50 px-4 sm:flex justify-between h-64">
         <div className="w-2/3 flex flex-col items-center justify-center gap-8">
           <h1 className="text-4xl font-semibold leading-[48px] text-gray-700">
-           상품 구매하세요
-            <br /> 사주세요
+           상품을 편리하게 찾아보세요
           </h1>
           <button className="rounded-3xl bg-lama text-white w-max py-3 px-5 text-sm">
             바로 구매
           </button>
         </div>
-        <div className="relative w-1/3">
-          <Image src="/images/home.jpg" alt="" fill className="object-contain" />
+        <div className="relative w-2/3">
+          <Image src="/images/home.jpg" alt="" fill className="object-cover"  />
         </div>
       </div>
 

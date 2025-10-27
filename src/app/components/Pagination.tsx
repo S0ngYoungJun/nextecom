@@ -28,14 +28,14 @@ const Pagination = ({
         disabled={!hasPrev}
         onClick={() => createPageUrl(currentPage - 1)}
       >
-        Previous
+        이전
       </button>
       <button
         className="rounded-md bg-lama text-white p-2 text-sm w-24 cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
         disabled={!hasNext}
         onClick={() => createPageUrl(currentPage + 1)}
       >
-        Next
+        다음
       </button>
     </div>
   );

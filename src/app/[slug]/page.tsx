@@ -39,8 +39,9 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
         {/* 장바구니 버튼 대신 단순 버튼 표시 */}
         <Add
           productId={String(product.id)}
-          variantId="default"
-          stockNumber={10} // 재고 수는 임의로 지정 가능
+          name={product.name}
+          price={product.price}
+          imageUrl={product.imageUrl}
         />
 
         <div className="h-[2px] bg-gray-100" />

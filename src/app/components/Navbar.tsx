@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Menu from "./Menu";
 import Image from "next/image";
@@ -24,7 +26,6 @@ const Navbar = () => {
           </Link>
           <div className="hidden xl:flex gap-4">
             <Link href="/">Homepage</Link>
-            <Link href="/">Shop</Link>
             <Link href="/">About</Link>
             <Link href="/">Contact</Link>
           </div>
